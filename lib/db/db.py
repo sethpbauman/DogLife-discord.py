@@ -63,7 +63,7 @@ def execute(command, *values):
 
 
 def multiexec(command, valuesset):
-    cur.execute(command, valueset)
+    cur.execute(command, valuesset)
 
 
 def scriptexec(path):
