@@ -38,6 +38,9 @@ class Bot(BotBase):
             self.ready = True
             self.guild = self.get_guild(730922987246846063)
             print("bot ready")
+            
+            channel = self.get_channel(730922987246846063)
+            await channel.send("")
 
         else:
             print("bot reconnected")
