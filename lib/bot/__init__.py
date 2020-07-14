@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from discord import Embed, File
 from discord.ext.commands import Bot as BotBase
 
 PREFIX = "+"
@@ -39,8 +42,35 @@ class Bot(BotBase):
             self.guild = self.get_guild(730922987246846063)
             print("bot ready")
             
-            channel = self.get_channel(730922987246846063)
-            await channel.send("")
+            # creates channel object
+            channel = self.get_channel(730922987246846066)
+            
+            # sends a message to the channel
+            await channel.send("Now online!")
+
+            # makes one of those little boxes with text in it (called an embed)
+            embed = Embed(title="This is my title", description="DogBot has a description",
+                          colour=0xFF0000, timestamp=datetime.utcnow())
+            
+            # adds the main contents to embed (inline = false puts that field in a new row)
+            fields = [("Name", "Value", True),
+                      ("Another field", "This field is next to the other one", True),
+                      ("A non-inline field", "This field will appear on it's own row", False)]
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+
+            # sets an author (with an icon picture, currently using the guild picture)
+            embed.set_author(name="Seth", icon_url=self.guild.icon_url)
+            embed.set_footer(text="This is a footer!")
+            embed.set_thumbnail(url=self.guild.icon_url)
+            embed.set_image(url=self.guild.icon_url)
+
+            # sends embed message
+            await channel.send(embed=embed)
+
+            # sends a picture message (uses file)
+            await channel.send(file=File("./data/images/profilepic.jpg"))
+
 
         else:
             print("bot reconnected")
